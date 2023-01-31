@@ -114,17 +114,16 @@ V.~Arora, E.~Y.~K. Ng, R.~S. Leekha, M.~Darshan, and A.~Singh, ``Transfer
   learning-based approach for detecting covid-19 ailment in lung ct scan.''
   \emph{Computers in Biology and Medicine}, 2021.
 
-\bibitem[Bougourzi et~al.(2021)Bougourzi, Contino, Distante, Distante, and
-  Taleb-Ahmed]{Bougourzi_2021}
-F.~Bougourzi, R.~Contino, C.~Distante, C.~Distante, and A.~Taleb-Ahmed,
-  ``Cnr-iemn: A deep learning based approach to recognise covid-19 from
-  ct-scan,'' \emph{ICASSP 2021 - 2021 IEEE International Conference on
-  Acoustics, Speech and Signal Processing (ICASSP)}, 2021.
-
 \bibitem[Singh et~al.(2021)Singh, Singh, Singh, and Yow]{Singh_2021}
 G.~Singh, G.~Singh, G.~Singh, and K.-C. Yow, ``Object or background: An
   interpretable deep learning model for covid-19 detection from ct-scan
   images.'' \emph{Diagnostics}, 2021.
+
+\bibitem[Gunraj(2021)]{Gunraj_2021}
+\BIBentryALTinterwordspacing
+K.~Gunraj, ``Kaggle. covidx ct-2 dataset,'' 2021, accessed: 2023-01-01.
+  [Online]. Available: \url{https://www.kaggle.com/datasets/hgunraj/covidxct}
+\BIBentrySTDinterwordspacing
 
 \bibitem[Rahimzadeh et~al.(2021)Rahimzadeh, Attar, and
   Sakhaei]{Rahimzadeh_2021}

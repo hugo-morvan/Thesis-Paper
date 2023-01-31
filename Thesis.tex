@@ -63,21 +63,31 @@ The literature on COVID-19 detection using chest CT-scans can be divided into 2 
 %from here the author will be group by preprocessing techniques but the order might change. 
 
 In \cite{Turkoglu_2021}, Turkoglu started with a dataset of 746 CT images then used data augmentation techniques (reflection, rotation) to expand this dataset to 3730 images. Using transfer-learning techniques, the author used a Multiple Kernels-ELM-based Deep Neural Networks (MKs-ELM-DNN) method and obtained an accuracy score of 98.36\% \cite{Turkoglu_2021}.
+
 In \cite{Sen_2021}, Sen et al. used a bi-stage hybrid model to detect COVID-19 from CT images of two different datasets (\cite{Angelov_2020} and \cite{Zhao_2020}). The first stage of this approach is to use a CNN architecture to extract features from the CT images. The second stage is a bi-stage feature selection approach that selects which features to be used for the classification using the Support Vector Machine (SVM) classifier. This method yield a prediction rate of 98.39\% on \cite{Angelov_2020}, and a 90.0\% prediction rate on \cite{Zhao_2020}.
+
 In \cite{Ghassemi_2021}, Ghassemi et al. used pre-trained deep neural networks and a cyclic generative adversarial net (CycleGAN) model for data augmentation. This method reached an accuracy of 99.60\% on a dataset of 189 patients (Iranian hospital). 
+
 In \cite{Aria_2022}, Aria et al. used transfer learning techniques to overcome the problems raised by using small-sized datasets. Their paper proposes an adversarial deep domain adaptation-based approach for diagnosing COVID-19 from lung CT-images, termed ADA-COVID. They achieved an accuracy of 99.96\% on \cite{Angelov_2020}. 
+
 In \cite{Carvalho_2021}, Carvalho et al. used a combination of hyperparameters optimization, feature selection and a multi-layer perceptron classifier to classify images from \cite{Angelov_2020} and \cite{Zhao_2020}. The proposed methodology achieved an accuracy of 99.7\% and 98.7\% on the respective datasets.
+
 In \cite{Jaiswal_2020}, a DenseNet201 based deep transfer learning (DTL) method is proposed by Jaiswal et al. to classify CT images from \cite{Angelov_2020}. The proposed model is utilized to extract features by using its own learned weights on the ImageNet dataset along with a convolutional neural structure to achieve an accuracy of 97\%.
+
 In \cite{Arora_2021}, Arora et al. used transfer learning from existing pre-trained models and a super-residual dense neural network to classify CT images from \cite{Angelov_2020} and \cite{Zhao_2020}. Their method claimed to have achieved a precision of 100\% and 94.12\% respectively.
 
 
-In \cite{Bougourzi_2021}, Bougourzi et al. ...
-In \cite{Singh_2021}, Singh and Yow ...
-In \cite{Rahimzadeh_2021}, Rahimzadeh et al. ...
-In \cite{Yang_2022}, ...
-In \cite{Loey_2020}, ...
-In \cite{Alshazly_2020}, ...
-In \cite{Shah_2021}, Shah et al. ...
+In \cite{Singh_2021}, Singh and Yow propose an iterpretable deep learning model Ps-ProtoPNet to detect COVID-19 from CT-scan images from \cite{Gunraj_2021}. The highest accuracy that their model achived was 99.29\%.
+
+In \cite{Rahimzadeh_2021}, Rahimzadeh et al. used an image processing algorithm to discard the CT images where the lung is not properly visible in order to reduce processing time and false detection. They used a ResNet50V2 deep neural network on a dataset that they introduced consisting of 48260 CT scan images from 282 normal persons and 15589 images from 95 patients with COVID-19 infections. The proposed method achieved an accuracy of 98.49\% in the single image classification stage, and an accuracy of 95.51\% at the patient identification stage. 
+
+In \cite{Yang_2022}, Yang et al. propose three deep learning architectures, feature-ensemble deep neural network (F-EDNC), fully connected-ensemble deep neural network (FC-EDNC), and output-ensemble deep neural network (O-EDNC) to classify CT images from \cite{Angelov_2020}. The results suggest that the F-EDNC architecture is the best performing architecture with an accuracy of 97.75\%, followed by FC-EDNC and O-EDNC with 97.55\% and 96.12\% accuracy respectively. [Explain what an esemble neural network is later ?]
+
+In \cite{Loey_2020}, Loey et al. used data augmentation techniques along with Conditional Generative Adversarial Networks (CGAN) to generate new images from the dataset of \cite{Zhao_2020}. They used five different deep learning architectures to classify the generated images and achieved best results with the ResNet50 architecture. The authors obtained an accuracy of 82.91\%, a sensitivity of 77.66\% and a specificity of 87.62\%.
+
+In \cite{Alshazly_2020}, Alshazly et al. experimented with twelve different convolutional neural network architectures to classify CT images from the dataset of \cite{Angelov_2020} and \cite{Zhao_2020}. The proposed model achieved average accuracies of 99.4\% and 92.9\%, and sensitivity scores of 99.8\% and 93.7\% on \cite{Angelov_2020} and \cite{Zhao_2020} respectively. The authors also proposed a method to visualize the decision made by the models by using the Grad-CAM technique.
+
+In \cite{Shah_2021}, Shah et al. compared the performances of a self-developed model named CTnet-10 to the performances of several pre-existing CNN architectures in classifying the CT images from \cite{Zhao_2020}. The VGG-19 architecture showed the best results with an accuracy of 94.52\%.
 
 \subsection{3-Dimensional Approach}
 In \cite{Altaf_2021}, Altaf et al. used a 3D convolutional neural network (CNN) to classify CT images from \cite{Angelov_2020}. The proposed model achieved an accuracy of 99.6\% on the dataset.
