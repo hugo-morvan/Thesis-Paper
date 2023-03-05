@@ -1,18 +1,20 @@
 # Fdb version 4
-["bibtex Thesis"] 1675210857 "Thesis.aux" "Thesis.bbl" "Thesis" 1675211988 0
+["bibtex Thesis"] 1677984576 "Thesis.aux" "Thesis.bbl" "Thesis" 1677985083 0
   "./refs.bib" 1675209602 50829 0a7a02209a79c2db701a6dbf21ef01bc ""
-  "Thesis.aux" 1675211984 7987 e92242efa4d55de7126867d5b55ea3a1 "pdflatex"
+  "Thesis.aux" 1677985081 8726 3d45378b9c5cfac561ff3741fd15a17a "pdflatex"
   "c:/texlive/2022/texmf-dist/bibtex/bst/ieeetran/IEEEtranN.bst" 1670358173 63583 d34cb6c328acc69716207f4a3421ad46 ""
   (generated)
   "Thesis.bbl"
   "Thesis.blg"
   (rewritten before read)
-["pdflatex"] 1675211981 "c:/Users/hugom/OneDrive/Bureau/Thesis Paper/Thesis.tex" "Thesis.pdf" "Thesis" 1675211988 0
-  "Thesis.aux" 1675211984 7987 e92242efa4d55de7126867d5b55ea3a1 "pdflatex"
-  "Thesis.bbl" 1675210858 12708 85849c766799fb01365ffa64382bfbc4 "bibtex Thesis"
-  "Thesis.tex" 1675211979 20370 8edd99efeecbea59000c4f35670bf68b ""
-  "Thesis.toc" 1675211984 1836 811ee6fcd499e4c6fe2ff933f40b5bd7 "pdflatex"
-  "c:/Users/hugom/OneDrive/Bureau/Thesis Paper/Thesis.tex" 1675211979 20370 8edd99efeecbea59000c4f35670bf68b ""
+["pdflatex"] 1677985078 "c:/Users/hugom/OneDrive/Bureau/Thesis Paper/Thesis.tex" "Thesis.pdf" "Thesis" 1677985083 0
+  "CNN.png" 1677982470 26188 c948f14152c360009acbaf00599e4042 ""
+  "Thesis.aux" 1677985081 8726 3d45378b9c5cfac561ff3741fd15a17a "pdflatex"
+  "Thesis.bbl" 1677984576 12708 85849c766799fb01365ffa64382bfbc4 "bibtex Thesis"
+  "Thesis.lof" 1677985081 303 789ab375f0adfd8572e61930c1797ece "pdflatex"
+  "Thesis.tex" 1677985074 24475 4a73a262a4b0fac82baf55b9ba9e2362 ""
+  "Thesis.toc" 1677985081 1976 00f8cf44131ce35b2a8c3d9267701a59 "pdflatex"
+  "c:/Users/hugom/OneDrive/Bureau/Thesis Paper/Thesis.tex" 1677985074 24475 4a73a262a4b0fac82baf55b9ba9e2362 ""
   "c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1670355129 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1670357202 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1670356340 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -73,8 +75,11 @@
   "c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1670364939 4662777 6d30ebd1f2949ad7a3d8a3b5cd0d9f7d ""
   "c:/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1670365137 3063335 d58a08d0baa43853b7109f41490b7e92 ""
   "c:/texlive/2022/texmf.cnf" 1670364893 713 e69b156964470283e0530f5060668171 ""
+  "resnet.png" 1677983442 84755 a35a23ac33da166585478e7358480bda ""
+  "vgg.png" 1677983736 41175 efd4ed1a98f9522416e9873c646f69f5 ""
   (generated)
   "Thesis.aux"
+  "Thesis.lof"
   "Thesis.log"
   "Thesis.pdf"
   "Thesis.toc"

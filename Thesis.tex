@@ -35,6 +35,9 @@ I would like to express my thanks to my thesis advisor, Dr. KC Santosh, without 
 \tableofcontents
 
 \newpage
+\listoffigures
+
+\newpage
 \section{Introduction}
 %Describe Covid19, in the context of 2022
 The novel coronavirus disease SARS-CoV-2 (COVID-19) has spread rapidly and widely since the end of 2019. No country and no community has been spared the direct and indirect impacts of the pandemic \cite{WHO_2021}. It is assumed that when COVID-19 becomes endemic there will be low-level circulation of virus, which underscores the continues importance of public health and social measures even in those countries where vaccination programs are well underway \cite{WHO_2021}\cite{WHO_2022}. The risk of emergence of further variants of concern increases with every instance of transmission. The best way to reduce the risk of further virus mutation is to reduce transmission \cite{WHO_2021}, hence the importance of developing reliable and fast means of detecting the presence of the virus. Currently, diagnostic techniques based on viral RNA amplification, specifically qRT-PCR (quantitative real-time polymerase chain reaction), are the gold standard diagnostic methods for COVID-19 \cite{Teymouri_2021}. However, the RT-PCR test for SARS-CoV-2 virus does have some pitfalls that necessitate improvements in the way the method is used. As with immunodiagnostic tests, the RT-PCR test can have difficulties in distinguishing between true positive and true negative COVID-19 infected individuals, therefore it is a wise precaution not to rely on PCR test results alone, and to consider other clinical and molecular evidence \cite{Teymouri_2021}. 
@@ -52,7 +55,7 @@ In this paper, we propose a deep learning model to detect COVID-19 from CT scans
 \section{Related Work}
 %Do the lib review here
 \subsection{Dataset availability}
-Among the publicly available dataset containing CT-scans labeled for COVID-19 classification, 2 categories of datasets emerge: 2D and 3D datasets. 2D datasets are generally images extracted from CT-scans using random slicing (cite), slicing (cite) or manual slicing for significant regions, realised by a physician or a doctor. 3D datasets contains full CT-scans and come in .mha or .dicom file format. In addition to the image data, there is sometimes additional metadata such as age, sex, or other information. The labeling of datasets are realised by physicians and/or utilising one or several RT-PCR tests (cite) . The issue with 2D datasets is that it requires the intervention of a physician to select the slices of interest or , if an algorithm is used for the slicing, the risk of missing the area of interest is to consider.Additionally, selecting 2D images from 3D CT-scans results in having numerous images from a single patient and can lead to performance overestimation of models \cite{Altaf_2021}. The problem with 3D dataset is that it increases the size of the data to process and therefore increases the time to process.Since Deep learning requires large amount of annotated (training) data to learn useful computational models to accurately detect COVID-19 using CT-images \cite{Altaf_2021}, the size of qualitative datasets can get rapidly big.
+Among the publicly available dataset containing CT-scans labeled for COVID-19 classification, 2 categories of datasets emerge: 2D and 3D datasets. 2D datasets are generally images extracted from CT-scans using random slicing (cite), slicing (cite) or manual slicing for significant regions, realised by a physician or a doctor. 3D datasets contains full CT-scans and come in .mha or .dicom file format, as produced by CT-scans machines. In addition to the image data, there is sometimes additional metadata such as age, sex, or other information. The labeling of datasets are realised by physicians and/or utilising one or several RT-PCR tests (cite). One issue with 2D datasets is that it requires the intervention of a physician to select the slices of interest or, if an algorithm is used for the slicing, the risk of missing the area of interest is to consider.Additionally, selecting 2D images from 3D CT-scans results in having numerous images from a single patient and can lead to performance overestimation of models \cite{Altaf_2021}. The problem with using 3D dataset is that it increases the size of the data to be processed and therefore increases the time to train a machine learning model. Since Deep Learning requires large amount of annotated (training) data to learn useful computational models to accurately detect COVID-19 using CT-images \cite{Altaf_2021}, the size of qualitative datasets can get rapidly big.
 Talk about the sensitivity of ct scans.  
 
 %Talk about difficulty of finding large dataset, causing researcher to experiment with transfer learning to palliate to the small size datasets of CT-scans. 
@@ -102,33 +105,56 @@ In \cite{Pu_2020}
 \section{Methods}
 
 \subsection{Dataset Description}
-For this paper, we consider the STOIC2021 Training dataset. The STOIC project collected Computed Tomography (CT) images of 10,735 individuals suspected of being infected with SARS-COV-2 during the first wave of the pandemic in France, from March to April 2020. For each patient in the training set, the dataset contains binary labels for COVID-19 presence, based on RT-PCR test results, and COVID-19 severity, defined as intubation or death within one month from the acquisition of the CT scan\cite{Revel_2021}. The "Training" part of this dataset which is used for this paper is publicly available on AWS Registry of Open Data \cite{STOIC_Training} and consists CT images from 2000 individuals. Each CT-scan is in the dimension of 512*512*(143 - 866) for width*height*depth. The depth value varies from 143 to 866 as each CT-scan has a different amount of layers, the mean amount of layers being 433.
+For this paper, we consider the STOIC2021 Training dataset. The STOIC project collected Computed Tomography (CT) images of 10,735 individuals suspected of being infected with SARS-COV-2 during the first wave of the pandemic in France, from March to April 2020. For each patient in the training set, the dataset contains binary labels for COVID-19 presence, based on RT-PCR test results, and COVID-19 severity, defined as intubation or death within one month from the acquisition of the CT scan\cite{Revel_2021}. The part of this dataset which is used for this paper is publicly available on AWS Registry of Open Data \cite{STOIC_Training} and consists CT images from 2000 individuals. Each CT-scan is in the dimension of 512*512*(143 - 866) for width*height*depth. The depth value varies from 143 to 866 as each CT-scan has a different amount of layers corresponding to the height of the patient, the mean amount of layers being 433.
 \subsection{Pre-processing Methods}
 
 %Talks about the three different preprocessing methods used : low res, high res, slicing.
-Pre-processing the dataset before training the deep neural network is necessary as each CT-scan has a different shape. The goal of the pre-processing is therefore to convert each CT-scan into a standardised shape, into a format that is readable by the neural network. First, each scan is converted from its original .mha file type into a numpy volume matrix, which allows for modifications on the CT-scan. The volume is then normalized to contain values between 0 and 1, 0 being the lowest density in the scan 1 being the highest. Finally, the volume is resized on all three axis to fit the desired dimensions for the input of the neural network using a zoom function and a scaling factor. The scaling factor is calculated as follow : \begin{align}
+Pre-processing the dataset before training the deep neural network is necessary as each CT-scan has a different shape. The goal of the pre-processing is therefore to convert each CT-scan into a standardised shape, into a format that is readable by the neural network. First, each CT-scan volume is converted from its original ".mha" file type into a number tensor using the python library Numpy. This allows for the subsequent pre-processing operations to be effectuated. The volume is then normalized to contain values between 0 and 1, 0 being the lowest density in the scan (dark pixels), and 1 being the highest (white pixels). Finally, the volume is resized on all three axis to fit the desired dimensions for the input of the neural network using a zoom function from the SciPy python library and a scaling factor. The scaling factor is calculated as follow : \begin{align}
     Scaling Factor = \frac{Desired Dimension}{Current Dimension}
 \end{align}
 
-The pre-processing methods used in this paper are the following:
+The input shaped choosen for the experimentation is 128*128*64 as it reduces the size of the dataset to 8Gb, which is small enough to be fitted on a computer GPU.
 
 
 \subsection{Deep Neural Networks}
+In this section, the different deep neural networks used for the experimentation are presented. The first model is a simple 5 layers convolutional neural network, the second model is a ResNet34 architecture, and the third model is a VGG-16 architecture. The models are implemented using the Tensorflow python library.
 \subsubsection{Convolutional Neural Network}
 
 %talk about what is a convolutional neural network and why using it for image recognition
 %Explain what is Convolution, Batch Normalisation, MaxPooling, Dropouts, padding, activation USING CITATIONS
 %Explain why I choose the models I choose
+Convolutional Neural Networks are 
 \subsubsection{Simple Model}
 %The 5 layers CNN
-Explains the Basic models using the terms defined above
+
+%Explain the architecture of the model
+The first architecture used for the experimentation is a simple 5 layers convolutional neural network. The architecture of the model is presented in Figure \ref{fig:CNN}. The model is composed of 5 layers, 3 convolutional layers and 2 fully connected layers. The first convolutional layer has 32 filters of size 3*3*3, the second convolutional layer has 64 filters of size 3*3*3, and the third convolutional layer has 128 filters of size 3*3*3. The first fully connected layer has 128 neurons, and the second fully connected layer has 1 neuron. The activation function used for the convolutional layers is ReLU, and the activation function used for the fully connected layers is sigmoid. The model is implemented using the Tensorflow python library.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{CNN.png}
+    \caption{The architecture of the simple CNN model}
+    \label{fig:CNN}
+\end{figure}
+
 \subsubsection{ResNet34}
-Explains What is a resnet, Resnet34, how I modified it to handle 3D data, show architecture
+The second architecture used for the experimentation is a ResNet34 architecture. The architecture of the model is presented in Figure \ref{fig:ResNet34}. The model is composed of 5 layers, 3 convolutional layers and 2 fully connected layers. The first convolutional layer has 32 filters of size 3*3*3, the second convolutional layer has 64 filters of size 3*3*3, and the third convolutional layer has 128 filters of size 3*3*3. The first fully connected layer has 128 neurons, and the second fully connected layer has 1 neuron. The activation function used for the convolutional layers is ReLU, and the activation function used for the fully connected layers is sigmoid. The model is implemented using the Tensorflow python library.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resnet.png}
+    \caption{The architecture of the ResNet34 model}
+    \label{fig:ResNet34}
+\end{figure}
 \subsubsection{VGG-16}
-Explains what is VGG, VGG-16, how I modified it to handle 3D data*
+The third architecture used for the experimentation is a VGG-16 architecture. The architecture of the model is presented in Figure \ref{fig:VGG16}. The model is composed of 5 layers, 3 convolutional layers and 2 fully connected layers. The first convolutional layer has 32 filters of size 3*3*3, the second convolutional layer has 64 filters of size 3*3*3, and the third convolutional layer has 128 filters of size 3*3*3. The first fully connected layer has 128 neurons, and the second fully connected layer has 1 neuron. The activation function used for the convolutional layers is ReLU, and the activation function used for the fully connected layers is sigmoid. The model is implemented using the Tensorflow python library.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{vgg.png}
+    \caption{The architecture of the VGG-16 model}
+    \label{fig:VGG16}
+\end{figure}
 
 \subsection{Evaluation Metrics}
-To discuss the performance of the result in accordance to the literature, the metrics defined below will be used to measure the performances. In this section, the following abbreviations will be used: 
+In this section, the different evaluation metrics used in the litterature to evaluate the performance of the deep neural networks are presented. The first metric is the accuracy, the second metric is the specificity, the third metric is the sensitivity, and the fourth metric is the precision. The metrics are implemented using the Tensorflow python library.
 \begin{itemize}
     \item TP : True Positive; designate the amount of CT-scans with a covid+ label correctly identified as covid+ by the model.
     \item FP : False Positive; designate the amount of CT-scans with covid- label incorrectly identified as covid+ by the model.
@@ -168,20 +194,32 @@ F1 score is a joint of Precision and Recall, expressed as a harmonic mean of thi
 %Add recall
 
 \newpage
-\section{Experimental Results}
+\section{Experimental Procedure}
 
 \subsection{Dataset separation}
 
 %talks about how the dataset is split in 80\%, 20\% for train, valid
-The 2000 CT-scans are split into 80\% for training and 20\% for validation.  The validation set is used to evaluate the performance of the model during the training process.
+The 2000 CT-scans are split into 80\% for training and 20\% for validation. The validation set is used to evaluate the performance of the model during the training process.
 
 \subsection{Hardware}
 %Talk about the use of the Lawrence supercomputer. Explain the reason why this was needed.
-As the STOIC2021 dataset containing CT-scans from 2000 patients is relatively large [talk about and quote big data], computation for this project were performed on High Performance Computing systems at the University of South Dakota, funded by NSF Award OAC-1626516. The specific node on which the computations were performed is composed of dual 12-core SkyLake 5000 series CPUs, an Nvidia Tesla 100V 32GB GPU, 192GB of RAM and 240GB SSD. Usage of the Lawrence supercomputer allowed for greatly reduce training times during the experimental phase of this research. USD research Computing staff Bill Cone provided valuable technical expertise and assistance to this project.
+As the STOIC2021 dataset containing CT-scans from 2000 patients is relatively large, computation for this project were performed on High Performance Computing systems at the University of South Dakota, funded by NSF Award OAC-1626516. The specific node on which the computations were performed is composed of dual 12-core SkyLake 5000 series CPUs, an Nvidia Tesla 100V 32GB GPU, 192GB of RAM and 240GB SSD. Usage of the Lawrence supercomputer allowed for greatly reduced training times during the experimental phase of this research. USD research Computing staff Bill Cone provided valuable technical expertise and assistance to this project.
 
 
 \subsection{Training parameters}
 %Explain what were the parameters used for the training : epochs, early stopping, loss function, optimizer, batch size, metrics measured
+The training phase of this research was divided into two phases. The first phase was the experimental phase, where different architectures were tested and compared. The second phase was the final phase, where the best performing architecture was trained for 20 epochs.
+
+During the experimental phase, the following parameters were used to obtain a first set of results :
+\begin{itemize}
+    \item Epochs : 50
+    \item Loss Function : Binary Cross Entropy
+    \item Optimizer : Adam
+    \item Batch Size : 16
+    \item Metrics : Accuracy, Loss
+\end{itemize}
+
+After determining the best performing architecture, the final phase of the training was performed.
 The following parameters were used to obtained the results presented in this paper :
 \begin{itemize}
     \item Epochs : 20
@@ -193,17 +231,21 @@ The following parameters were used to obtained the results presented in this pap
 
 \newpage
 \section{Results}
+
+\subsection{Experimental phase}
+
+\subsection{Final phase}
 %add the graphs, tables with values, accuracy, loss, specificity, what it means in the context of diagnosing patients.
 After training the Convolutional Neural Network for 20 epochs, the accuracy reached a maximum of 63\% on the validation set and 65.4\% on the training set while the loss reached its lowest at 0.644 for the validation set and 0.642 for the training set. 
 
 \newpage
 \section{Discussion}
 %unpack the results
-The accuracy of this model in detecting the presence of COVID-19 on CT-scans shows that Deep Learning models can be useful tools for mass screening. Deep learning tools could in this case facilitate the triage of COVID-19 and nonCOVID-19 patients, and thus improve diagnosis on thoracic symptoms as well as limit the spread of the most contagious virus. In the future, this project could be combined with other well-known deep learning models trained on different image data types such as chest x-rays to employ multimodal learning and representation for COVID-19 screening. This could possibly provide more information in detecting anomaly patterns due to COVID-19. Further research could also try to improve the performances of this project by using a higher-resolution preprocessed data or by experimenting with data augmentation techniques.
+
 
 \newpage
 \section{Conclusions and Future Work}
-
+The accuracy of this model in detecting the presence of COVID-19 on CT-scans shows that Deep Learning models can be useful tools for mass screening. Deep learning tools could in this case facilitate the triage of COVID-19 and nonCOVID-19 patients, and thus improve diagnosis on thoracic symptoms as well as limit the spread of the most contagious virus. In the future, this project could be combined with other well-known deep learning models trained on different image data types such as chest x-rays to employ multimodal learning and representation for COVID-19 screening. This could possibly provide more information in detecting anomaly patterns due to COVID-19. Further research could also try to improve the performances of this project by using a higher-resolution preprocessed data or by experimenting with data augmentation techniques.
 
 \newpage
 \bibliographystyle{IEEEtranN}
