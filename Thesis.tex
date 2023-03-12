@@ -3,15 +3,72 @@
 \usepackage{graphicx}
 \usepackage[numbers]{natbib}
 \usepackage{amsmath}
-\graphicspath{ {images/} }
-\title{Deep learning features for COVID-19 screening using Computed Tomography (CT)
-scans}
-\author{Hugo Morvan}
-\date{January 2023}
-\begin{document}
+\usepackage{setspace}
 
+\graphicspath{ {images/} }
+%make the title bold
+
+
+
+\title{\textbf{Deep learning features for COVID-19 screening using Computed Tomography (CT)
+scans}}
+
+% \author{Hugo Morvan}
+\date{}
+\begin{document}
+\pagestyle{empty}
 \maketitle
 
+\doublespacing
+\begin{center}
+
+
+By \\
+Hugo Morvan \\
+B.S., University of South Dakota, 2023 \\
+
+\bigskipamount=7em
+\bigskip
+
+
+A Thesis Submitted in Partial Fulfillment \\
+Of the Requirements for the  \\
+University Honors Program \\
+
+\rule{\linewidth}{1pt} 
+
+Department of Computer Science \\
+The University of South Dakota \\
+May 2023 \\
+
+\newpage
+
+The members of the Honors Thesis Committee appointed \\
+to examine the thesis of Hugo Morvan \\
+find it satisfactory and recommend that it be accepted. \\
+
+\bigskip
+\rule{\linewidth}{1pt} \\
+KC Santosh, PhD \\
+Chair, Computer Science \\
+Director of the Committee  \\
+
+\medskipamount=3em
+\medskip
+\rule{\linewidth}{1pt} \\
+Zachary Tschetter \\
+Instructor, Computer Science \\
+
+\medskip
+\rule{\linewidth}{1pt} \\
+Kathleen McElhinney \\
+Librarian/Associate Librarian\\
+
+
+\end{center}
+
+
+\newpage
 \begin{abstract}
 %Intro resumé
 AI-guided tools can extract distinguish features so lung abnormalities in CT scans can be analyzed. Also, CT scans, according to WHO, are cheaper to use, and therefore, with AI-guided tools, analyzing CT scans for the evidence of COVID-19 can be used in resource-constrained regions. 
@@ -20,24 +77,26 @@ In this project, 3D deep learning model (convolutional neural network tailored a
 %results
 When limiting to 20 epochs, the performance is promising, which is 65.44\% accuracy on a validation dataset with the lowest possible loss of 0.642.
 
-
-
 %discussion
 
 \end{abstract}
 
 \newpage
-\section{Acknowledgements}
-
-I would like to express my thanks to my thesis advisor, Dr. KC Santosh, without whom this project would have not started; to Librarian Specialist Kathleen McElhinney for her valuable help in the litterature review and the writting of this thesis. I would also like to thank the University of South Dakota for funding this project through the UDiscover program. Finally, I would like to thank my family and friends for their support and encouragement throughout this project.
-
-\newpage
+\pagestyle{plain}
 \tableofcontents
 
 \newpage
 \listoffigures
 
 \newpage
+\section{Acknowledgements}
+
+I would like to express my thanks to my thesis advisor, Dr. KC Santosh, without whom this project would have not started; to Librarian Specialist Kathleen McElhinney for her valuable help in the litterature review and the writting of this thesis. I would also like to thank the University of South Dakota for funding this project through the UDiscover program. Finally, I would like to thank my family and friends for their support and encouragement throughout this project.
+
+
+\newpage
+\pagenumbering{arabic}
+
 \section{Introduction}
 %Describe Covid19, in the context of 2022
 The novel coronavirus disease SARS-CoV-2 (COVID-19) has spread rapidly and widely since the end of 2019. No country and no community has been spared the direct and indirect impacts of the pandemic \cite{WHO_2021}. It is assumed that when COVID-19 becomes endemic there will be low-level circulation of virus, which underscores the continues importance of public health and social measures even in those countries where vaccination programs are well underway \cite{WHO_2021}\cite{WHO_2022}. The risk of emergence of further variants of concern increases with every instance of transmission. The best way to reduce the risk of further virus mutation is to reduce transmission \cite{WHO_2021}, hence the importance of developing reliable and fast means of detecting the presence of the virus. Currently, diagnostic techniques based on viral RNA amplification, specifically qRT-PCR (quantitative real-time polymerase chain reaction), are the gold standard diagnostic methods for COVID-19 \cite{Teymouri_2021}. However, the RT-PCR test for SARS-CoV-2 virus does have some pitfalls that necessitate improvements in the way the method is used. As with immunodiagnostic tests, the RT-PCR test can have difficulties in distinguishing between true positive and true negative COVID-19 infected individuals, therefore it is a wise precaution not to rely on PCR test results alone, and to consider other clinical and molecular evidence \cite{Teymouri_2021}. 
